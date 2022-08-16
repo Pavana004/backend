@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const user = require("./schema");
 const multer = require("multer");
-const Movie = require("../multi server/movieSchema");
+const Movie = require("./movieSchema");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Books = require("../multi server/bookSchema");
