@@ -4,9 +4,9 @@ const multer = require("multer");
 const Movie = require("./movieSchema");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Books = require("../multi server/bookSchema");
-const Album = require("../multi server/albumSchema");
-const Music = require("../multi server/musicSchema");
+const Books = require("./bookSchema");
+const Album = require("./albumSchema");
+const Music = require("./musicSchema");
 
 
 
