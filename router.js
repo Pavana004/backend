@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const Books = require("./bookSchema");
 const Album = require("./albumSchema");
 const Music = require("./musicSchema");
+const validation =require("./verifytoken");
 
 
 
@@ -50,14 +51,40 @@ router.post("/login", async (req, res) => {
         if (!passwordValidation) {
             return res.status(400).json("Your Password Wrong");
         }
-        let userToken = jwt.sign({ email: userExit.email }, "userinfoSecretId");
-        res.header("auth", userToken).send(userToken);
+        const userToken = jwt.sign({ email: userExit.email, name: userExit.name,id:userExit._id }, "userinfoSecretId",{expiresIn:"2d"});
+        res.header("auth",userToken).send(userToken);
 
     } catch (error) {
         res.status(500).send({ message: "Internal Server Error" });
 
     }
 })
+
+//user get
+
+router.get("/userdetails/id", validation, async (req,res)=>{
+    try {
+        const userInfo = await user.findById(req.user.id);
+        const {password,...details }= userInfo._doc;
+        res.status(200).json({...details});
+
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+})
+
+//userUpdate
+
+router.put("/userdetails", validation, async (req,res)=>{
+    try {
+        const userInfo = await user.findByIdAndUpdate(req.user.id,{$set:req.body},{new:true});
+        res.status(200).json(userInfo);
+
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+})
+
 
 
 //movies
