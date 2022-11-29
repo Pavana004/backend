@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "multiverse server",
   "main": "index.js",
-  
+  "engine":{
+     "node":"16.14.0"
+  }
  
   "scripts": {
     "start":"node index.js"
